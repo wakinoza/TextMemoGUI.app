@@ -2,17 +2,17 @@ package memoApp;
 
 import javax.swing.SwingUtilities;
 
-/**
+/**.
  * メインクラス
  * イベントディスパッチスレッドでUIを生成すし、必要なクラスのインスタンスを生成する
  */
 public class Main {
   public static void main(String[] args) {
       SwingUtilities.invokeLater(() -> {
-      MemoModel model = new MemoModel();
-      MemoView view = new MemoView();
-      MemoController controller = new MemoController(model, view);
-      MainFrame frame = new MainFrame(view, controller);
+      Model model = new Model();
+      View view = new View();
+      Control controller = new Control(model, view);
+      MainFrame frame = new MainFrame(view, control);
       frame.setVisible(true);
     });
   }
