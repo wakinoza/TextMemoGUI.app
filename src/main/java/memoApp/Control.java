@@ -1,6 +1,7 @@
 package memoApp;
 
 import java.io.IOException;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Control {
@@ -65,6 +66,7 @@ public class Control {
   }
 
   public void updateHistoryPanel() {
-
+    List<String> fileNames = MODEL.getHistoryList();
+    VIEW.updateHistoryPanel(fileNames);
   }
 }
