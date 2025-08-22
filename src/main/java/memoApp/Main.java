@@ -11,7 +11,7 @@ public class Main {
       SwingUtilities.invokeLater(() -> {
       Model model = new Model();
       View view = new View();
-      Control controller = new Control(model, view);
+      Control control = new Control(model, view);
       MainFrame frame = new MainFrame(view, control);
       frame.setVisible(true);
     });

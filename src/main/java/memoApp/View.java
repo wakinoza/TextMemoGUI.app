@@ -22,17 +22,31 @@ public class View {
   /**.過去の保存履歴を表示するパネル*/
   private JScrollPane historyScrollPane;
 
+  /**.テキスト内容を保存するボタン*/
+  private final JButton SAVE_BUTTON;
+
+  private final JButton TEXT_CLEAR_BUTTON;
+
+  /**.保存したメモをMEMO _TEXT _AREAに読み込むボタン*/
+  private JButton editButton;
+
+  /**.指定したファイルを履歴から削除するボタン */
+  private JButton clearHistoryButton;
+
   /**.
    * コンストラクタ
    */
   public View() {
     MEMO_PANEL = new JPanel(new BorderLayout());
     MEMO_TEXT_AREA = new JTextArea();
-    JButton saveButton = new JButton("保存");
+    SAVE_BUTTON = new JButton("保存");
+    TEXT_CLEAR_BUTTON = new JButton("削除");
 
     JScrollPane textScrollPane = new JScrollPane(MEMO_TEXT_AREA);
     JPanel buttonPanel = new JPanel();
-    buttonPanel.add(saveButton);
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+    buttonPanel.add(SAVE_BUTTON);
+    buttonPanel.add(TEXT_CLEAR_BUTTON);
 
     MEMO_PANEL.add(textScrollPane, BorderLayout.CENTER);
     MEMO_PANEL.add(buttonPanel, BorderLayout.SOUTH);
@@ -41,21 +55,57 @@ public class View {
   }
 
   /**.
-   * memoTextAreaのgetterメソッド
+   * MEMO_TEXT_AREAのgetterメソッド
    *
-   * @return memoTextAreaへの参照
+   * @return MEMO_TEXT_AREAへの参照
    */
   public JTextArea getMemoTextArea() {
     return this.MEMO_TEXT_AREA;
   }
 
   /**.
-   * MemoPanelのgetterメソッド
+   * MEMO_PANELのgetterメソッド
    *
-   * @return memoPanelへの参照
+   * @return MEMO_PANELへの参照
    */
   public JPanel getMemoPanel() {
     return this.MEMO_PANEL;
+  }
+
+  /**.
+   * SAVE＿BUTTONのgetterメソッド
+   *
+   * @return SAVE_BUTTONへの参照
+   */
+  public JButton getSaveButton() {
+    return this.SAVE_BUTTON;
+  }
+
+  /**.
+   * TEXT_CLEAR_BUTTONのgetterメソッド
+   *
+   * @return TEXT_CLEAR_BUTTONへの参照
+   */
+  public JButton getTextClearButton() {
+    return this.TEXT_CLEAR_BUTTON;
+  }
+
+  /**.
+   * editButtonのgetterメソッド
+   *
+   * @return editButtonへの参照
+   */
+  public JButton getEditButton() {
+    return this.editButton;
+  }
+
+  /**.
+   * clearHistoryButtonのgetterメソッド
+   *
+   * @return clearHistoryButtonへの参照
+   */
+  public JButton getClearHistoryButton() {
+    return this.clearHistoryButton;
   }
 
   /**.
@@ -94,10 +144,14 @@ public class View {
       historyPanel.setLayout(new BoxLayout(historyPanel, BoxLayout.X_AXIS));
 
       JLabel fileNameLabel = new JLabel(fileName);
-      JButton editButton = new JButton("再編集");
+      editButton = new JButton("再編集");
+      editButton.setActionCommand(fileName);
+      clearHistoryButton = new JButton("履歴削除");
+      clearHistoryButton.setActionCommand(fileName);
 
       historyPanel.add(fileNameLabel);
       historyPanel.add(editButton);
+      historyPanel.add(clearHistoryButton);
 
       historyContainerPanel.add(historyPanel);
     }
