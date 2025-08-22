@@ -47,7 +47,7 @@ public class Control {
 
       try {
          String content = MODEL.loadMemoContent(fileName);
-         MODEL.clearThisHistroy(fileName);
+         MODEL.clearThisHistory(fileName);
          VIEW.setMemoContent(content);
       } catch (IOException ex) {
          JOptionPane.showMessageDialog(null, "ファイルの読み込みに失敗しました。", "Error", JOptionPane.ERROR_MESSAGE);
@@ -57,12 +57,14 @@ public class Control {
     //履歴削除ボタン
     VIEW.getClearHistoryButton() .addActionListener(e -> {
       String fileName = e.getActionCommand();
-      MODEL.clearThisHistory(fileName);
-      updateHistoryPanel();
-      JOptionPane.showMessageDialog(null, "履歴を消去しました。", "Information", JOptionPane.INFORMATION_MESSAGE);
-
+      try {
+        MODEL.clearThisHistory(fileName);
+        updateHistoryPanel();
+        JOptionPane.showMessageDialog(null, "履歴を消去しました。", "Information", JOptionPane.INFORMATION_MESSAGE);
+      } catch (IOException ex) {
+        JOptionPane.showMessageDialog(null, "ファイルの削除に失敗しました。", "Error", JOptionPane.ERROR_MESSAGE);
+      }
     });
-
   }
 
   public void updateHistoryPanel() {
