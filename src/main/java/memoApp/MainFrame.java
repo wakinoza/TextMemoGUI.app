@@ -9,10 +9,11 @@ import java.awt.BorderLayout;
  */
 public class MainFrame extends JFrame {
 
-  /**.
+  /**
+   * .
    * コンストラクタ
    *
-   * @param view Viewクラスのインスタンスへの参照
+   * @param view    Viewクラスのインスタンスへの参照
    * @param control Controlクラスのインスタンスへの参照
    */
   public MainFrame(View view, Control control) {
@@ -28,3 +29,4 @@ public class MainFrame extends JFrame {
 
     control.setupListeners();
   }
+}

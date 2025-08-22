@@ -8,10 +8,10 @@ import javax.swing.SwingUtilities;
  */
 public class Main {
   public static void main(String[] args) {
-      SwingUtilities.invokeLater(() -> {
+    SwingUtilities.invokeLater(() -> {
       Model model = new Model();
       View view = new View();
-      Control controller = new Control(model, view);
+      Control control = new Control(model, view);
       MainFrame frame = new MainFrame(view, control);
       frame.setVisible(true);
     });

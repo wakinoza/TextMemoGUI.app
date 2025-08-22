@@ -2,7 +2,6 @@ package memoApp;
 
 import java.awt.BorderLayout;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,69 +13,117 @@ import javax.swing.JTextArea;
  * UIを司るクラス
  */
 public class View {
-  /**.
-   * メモと保存ボタンのパネル
-   */
-  private JPanel memoPanel;
+  /**.メモと保存ボタンのパネル */
+  private final JPanel MEMO_PANEL;
 
-  /**.
-   * 過去の保存履歴を表示するパネル
-   */
+  /**.メモを記述するテキストパネル */
+  private final JTextArea MEMO_TEXT_AREA;
+
+  /**.過去の保存履歴を表示するパネル*/
   private JScrollPane historyScrollPane;
 
-  /**.
-   * メモを記述するテキストパネル
-   */
-  private JTextArea memoTextArea;
+  /**.テキスト内容を保存するボタン*/
+  private final JButton SAVE_BUTTON;
+
+  private final JButton TEXT_CLEAR_BUTTON;
+
+  /**.保存したメモをMEMO _TEXT _AREAに読み込むボタン*/
+  private JButton editButton;
+
+  /**.指定したファイルを履歴から削除するボタン */
+  private JButton clearHistoryButton;
 
   /**.
    * コンストラクタ
    */
   public View() {
-    memoPanel = new JPanel(new BorderLayout());
-    memoTextArea = new JTextArea();
-    JButton saveButton = new JButton("保存");
+    MEMO_PANEL = new JPanel(new BorderLayout());
+    MEMO_TEXT_AREA = new JTextArea();
+    SAVE_BUTTON = new JButton("保存");
+    TEXT_CLEAR_BUTTON = new JButton("削除");
 
-    JScrollPane textScrollPane = new JScrollPane(memoTextArea);
+    JScrollPane textScrollPane = new JScrollPane(MEMO_TEXT_AREA);
     JPanel buttonPanel = new JPanel();
-    buttonPanel.add(saveButton);
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+    buttonPanel.add(SAVE_BUTTON);
+    buttonPanel.add(TEXT_CLEAR_BUTTON);
 
-    memoPanel.add(textScrollPane, BorderLayout.CENTER);
-    memoPanel.add(buttonPanel, BorderLayout.SOUTH);
+    MEMO_PANEL.add(textScrollPane, BorderLayout.CENTER);
+    MEMO_PANEL.add(buttonPanel, BorderLayout.SOUTH);
 
-    JScrollPane historyScrollPane = new JScrollPane();
+    historyScrollPane = new JScrollPane();
   }
 
   /**.
-   * memoTextAreaのgetterメソッド
-   * @return memoTextAreaへの参照
+   * MEMO_TEXT_AREAのgetterメソッド
+   *
+   * @return MEMO_TEXT_AREAへの参照
    */
   public JTextArea getMemoTextArea() {
-    return memoTextArea;
+    return this.MEMO_TEXT_AREA;
   }
 
   /**.
-   * MemoPanelのgetterメソッド
-   * @return memoPanelへの参照
+   * MEMO_PANELのgetterメソッド
+   *
+   * @return MEMO_PANELへの参照
    */
   public JPanel getMemoPanel() {
-    return memoPanel;
+    return this.MEMO_PANEL;
+  }
+
+  /**.
+   * SAVE＿BUTTONのgetterメソッド
+   *
+   * @return SAVE_BUTTONへの参照
+   */
+  public JButton getSaveButton() {
+    return this.SAVE_BUTTON;
+  }
+
+  /**.
+   * TEXT_CLEAR_BUTTONのgetterメソッド
+   *
+   * @return TEXT_CLEAR_BUTTONへの参照
+   */
+  public JButton getTextClearButton() {
+    return this.TEXT_CLEAR_BUTTON;
+  }
+
+  /**.
+   * editButtonのgetterメソッド
+   *
+   * @return editButtonへの参照
+   */
+  public JButton getEditButton() {
+    return this.editButton;
+  }
+
+  /**.
+   * clearHistoryButtonのgetterメソッド
+   *
+   * @return clearHistoryButtonへの参照
+   */
+  public JButton getClearHistoryButton() {
+    return this.clearHistoryButton;
   }
 
   /**.
    * historyScrollPaneのgetterメソッド
+   *
    * @return historyScrollPaneへの参照
    */
   public JScrollPane getHistoryScrollPane() {
-    return historyScrollPane;
+    return this.historyScrollPane;
   }
 
   /**.
    * メモ欄に引数で指定されたテキストを表示するメソッド
+   *
    * @param content 新しく表示したいテキスト
    */
   public void setMemoContent(String content) {
-    memoTextArea.setText(content);
+    MEMO_TEXT_AREA.setText(content);
   }
 
   /**.
@@ -97,10 +144,14 @@ public class View {
       historyPanel.setLayout(new BoxLayout(historyPanel, BoxLayout.X_AXIS));
 
       JLabel fileNameLabel = new JLabel(fileName);
-      JButton editButton = new JButton("再編集");
+      editButton = new JButton("再編集");
+      editButton.setActionCommand(fileName);
+      clearHistoryButton = new JButton("履歴削除");
+      clearHistoryButton.setActionCommand(fileName);
 
       historyPanel.add(fileNameLabel);
       historyPanel.add(editButton);
+      historyPanel.add(clearHistoryButton);
 
       historyContainerPanel.add(historyPanel);
     }
