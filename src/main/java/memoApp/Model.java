@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,10 @@ public class Model {
    * @throws IOException
    */
   public void saveMemo(String content) throws IOException {
-    String fileName = System.currentTimeMillis() + ".txt";
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+    LocalDateTime now = LocalDateTime.now();
+    String fileName = formatter.format(now) + ".txt";
     try (FileWriter writer = new FileWriter(SAVE_DIR + fileName)) {
       writer.write(content);
     }
