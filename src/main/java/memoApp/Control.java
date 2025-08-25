@@ -27,7 +27,7 @@ public class Control {
   }
 
   /**.
-   * ボタン操作の処理を指示するメソッド
+   *メモの保存と削除ボタン処理を指示するメソッド
    */
   public void setupMemoListeners() {
 
@@ -57,6 +57,11 @@ public class Control {
 
   }
 
+  /**.
+   * 保存したファイルの情報を再編集するメソッド
+   *
+   * @param editButton editButtonのインスタンスへの参照
+   */
   public void setupEditListener(JButton editButton) {
 
     VIEW.getEditButton().addActionListener(e -> {
@@ -73,7 +78,11 @@ public class Control {
     });
 
   }
-
+  /**.
+   * 履歴を再編集するメソッド
+   *
+   * @param clearHistoryButton clearHistoryButtonのインスタンスへの参照
+   */
   public void setupClearHistoryListener(JButton clearHistoryButton) {
 
     VIEW.getClearHistoryButton().addActionListener(e -> {

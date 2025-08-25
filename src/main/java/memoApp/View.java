@@ -148,6 +148,7 @@ public class View {
       editButton = new JButton("再編集");
       editButton.setActionCommand(fileName);
       control.setupEditListener(editButton);
+
       clearHistoryButton = new JButton("履歴削除");
       clearHistoryButton.setActionCommand(fileName);
       control.setupClearHistoryListener(clearHistoryButton);
