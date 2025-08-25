@@ -133,12 +133,9 @@ public class View {
    * @param fileNames 保存されているメモのファイル名のリスト
    */
   public void updateHistoryPanel(List<String> fileNames, Control control) {
-    historyScrollPane.removeAll();
 
     JPanel historyContainerPanel = new JPanel();
     historyContainerPanel.setLayout(new BoxLayout(historyContainerPanel, BoxLayout.Y_AXIS));
-
-    historyScrollPane = new JScrollPane(historyContainerPanel);
 
     for (String fileName: fileNames) {
       JPanel historyPanel = new JPanel();
@@ -160,6 +157,7 @@ public class View {
       historyContainerPanel.add(historyPanel);
 
     }
+    historyScrollPane.setViewportView(historyContainerPanel);
 
     historyScrollPane.revalidate();
     historyScrollPane.repaint();
