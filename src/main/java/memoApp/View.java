@@ -22,15 +22,16 @@ public class View {
   /**.過去の保存履歴を表示するパネル*/
   private JScrollPane historyScrollPane;
 
-  /**.テキスト内容を保存するボタン*/
+  /**.テキスト保存ボタン*/
   private final JButton SAVE_BUTTON;
 
+  /**.テキスト削除ボタン*/
   private final JButton TEXT_CLEAR_BUTTON;
 
-  /**.保存したメモをMEMO _TEXT _AREAに読み込むボタン*/
+  /**.再編集ボタン*/
   private JButton editButton;
 
-  /**.指定したファイルを履歴から削除するボタン */
+  /**.履歴削除ボタン */
   private JButton clearHistoryButton;
 
   /**.
@@ -131,7 +132,7 @@ public class View {
    *
    * @param fileNames 保存されているメモのファイル名のリスト
    */
-  public void updateHistoryPanel(List<String> fileNames) {
+  public void updateHistoryPanel(List<String> fileNames, Control control) {
     historyScrollPane.removeAll();
 
     JPanel historyContainerPanel = new JPanel();
@@ -146,15 +147,20 @@ public class View {
       JLabel fileNameLabel = new JLabel(fileName);
       editButton = new JButton("再編集");
       editButton.setActionCommand(fileName);
+      control.setupEditListener(editButton);
+
       clearHistoryButton = new JButton("履歴削除");
       clearHistoryButton.setActionCommand(fileName);
+      control.setupClearHistoryListener(clearHistoryButton);
 
       historyPanel.add(fileNameLabel);
       historyPanel.add(editButton);
       historyPanel.add(clearHistoryButton);
 
       historyContainerPanel.add(historyPanel);
+
     }
+
     historyScrollPane.revalidate();
     historyScrollPane.repaint();
   }

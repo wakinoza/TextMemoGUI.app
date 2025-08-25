@@ -21,12 +21,12 @@ public class MainFrame extends JFrame {
     setSize(1200, 800);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    control.updateHistoryPanel();
+    control.makeHistoryPanel();
 
     setLayout(new BorderLayout());
     add(view.getMemoPanel(), BorderLayout.CENTER);
     add(view.getHistoryScrollPane(), BorderLayout.WEST);
 
-    control.setupListeners();
+    control.setupMemoListeners();
   }
 }
