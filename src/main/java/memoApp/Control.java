@@ -9,10 +9,10 @@ import javax.swing.JOptionPane;
  * ModelクラスとViewクラスのかけ渡しを担うクラス
  */
 public class Control {
-  /**.Modelクラスのインスタンスへの参照*/
+  /**. Modelクラスのインスタンスへの参照*/
   private final Model MODEL;
 
-  /**.Viewクラスのインスタンスへの参照*/
+  /**. Viewクラスのインスタンスへの参照*/
   private final View VIEW;
 
   /**.
@@ -78,6 +78,7 @@ public class Control {
     });
 
   }
+
   /**.
    * 履歴を再編集するメソッド
    *
@@ -104,6 +105,6 @@ public class Control {
    */
   public void makeHistoryPanel() {
     List<String> fileNames = MODEL.getHistoryList();
-    VIEW.updateHistoryPanel(fileNames,this);
+    VIEW.updateHistoryPanel(fileNames, this);
   }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * データの読み書きを行うクラス
  */
 public class Model {
-  /**.テキストファイルを保存するディレクトリのパス*/
+  /**. テキストファイルを保存するディレクトリのパス*/
   private static final String SAVE_DIR = "memos/";
 
   /**.
@@ -30,7 +30,7 @@ public class Model {
   /**テキストエリアの文字列データを、テキストファイルに書き込むメソッド.
    *
    * @param content テキストエリアの文字列データ
-   * @throws IOException
+   * @throws IOException 指定されたファイルが存在するが通常ファイルではなくディレクトリである場合、存在せず作成もできない場合、またはなんらかの理由で開くことができない場合
    */
   public void saveMemo(String content) throws IOException {
 
@@ -64,7 +64,7 @@ public class Model {
    *
    * @param fileName 指定するファイル名
    * @return  指定するファイルの文字列データ
-   * @throws IOException
+   * @throws IOException ファイルからの読取り中に入出力エラーが発生した場合、または形式が間違っているか、マップできないバイト・シーケンスが読み取られた場合
    */
   public String loadMemoContent(String fileName) throws IOException {
     byte[] bytes = Files.readAllBytes(Paths.get(SAVE_DIR + fileName));
@@ -75,9 +75,9 @@ public class Model {
    * 指定されたテキストファイルを削除するメソッド
    *
    * @param fileName 削除したいファイル名
-   * @throws IOException
+   * @throws IOException 入出力エラーが発生した場合
    */
-  public void clearThisHistory(String fileName) throws IOException{
+  public void clearThisHistory(String fileName) throws IOException {
     Files.delete(Paths.get(SAVE_DIR + fileName));
   }
 }

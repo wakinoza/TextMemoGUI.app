@@ -13,25 +13,25 @@ import javax.swing.JTextArea;
  * UIを司るクラス
  */
 public class View {
-  /**.メモと保存ボタンのパネル */
+  /**. メモと保存ボタンのパネル */
   private final JPanel MEMO_PANEL;
 
-  /**.メモを記述するテキストパネル */
+  /**. メモを記述するテキストパネル */
   private final JTextArea MEMO_TEXT_AREA;
 
-  /**.過去の保存履歴を表示するパネル*/
-  private JScrollPane historyScrollPane;
+  /**. 過去の保存履歴を表示するパネル*/
+  private final JScrollPane HISTORY_SCROLL_PANE;
 
-  /**.テキスト保存ボタン*/
+  /**. テキスト保存ボタン*/
   private final JButton SAVE_BUTTON;
 
-  /**.テキスト削除ボタン*/
+  /**. テキスト削除ボタン*/
   private final JButton TEXT_CLEAR_BUTTON;
 
-  /**.再編集ボタン*/
+  /**. 再編集ボタン*/
   private JButton editButton;
 
-  /**.履歴削除ボタン */
+  /**. 履歴削除ボタン */
   private JButton clearHistoryButton;
 
   /**.
@@ -44,15 +44,15 @@ public class View {
     TEXT_CLEAR_BUTTON = new JButton("削除");
 
     JScrollPane textScrollPane = new JScrollPane(MEMO_TEXT_AREA);
+    MEMO_PANEL.add(textScrollPane, BorderLayout.CENTER);
+
     JPanel buttonPanel = new JPanel();
     buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
     buttonPanel.add(SAVE_BUTTON);
     buttonPanel.add(TEXT_CLEAR_BUTTON);
-
-    MEMO_PANEL.add(textScrollPane, BorderLayout.CENTER);
     MEMO_PANEL.add(buttonPanel, BorderLayout.SOUTH);
 
-    historyScrollPane = new JScrollPane();
+    HISTORY_SCROLL_PANE = new JScrollPane();
   }
 
   /**.
@@ -115,7 +115,7 @@ public class View {
    * @return historyScrollPaneへの参照
    */
   public JScrollPane getHistoryScrollPane() {
-    return this.historyScrollPane;
+    return this.HISTORY_SCROLL_PANE;
   }
 
   /**.
@@ -137,11 +137,13 @@ public class View {
     JPanel historyContainerPanel = new JPanel();
     historyContainerPanel.setLayout(new BoxLayout(historyContainerPanel, BoxLayout.Y_AXIS));
 
-    for (String fileName: fileNames) {
+    for (String fileName : fileNames) {
       JPanel historyPanel = new JPanel();
       historyPanel.setLayout(new BoxLayout(historyPanel, BoxLayout.X_AXIS));
 
       JLabel fileNameLabel = new JLabel(fileName);
+      historyPanel.add(fileNameLabel);
+
       editButton = new JButton("再編集");
       editButton.setActionCommand(fileName);
       control.setupEditListener(editButton);
@@ -150,16 +152,15 @@ public class View {
       clearHistoryButton.setActionCommand(fileName);
       control.setupClearHistoryListener(clearHistoryButton);
 
-      historyPanel.add(fileNameLabel);
       historyPanel.add(editButton);
       historyPanel.add(clearHistoryButton);
 
       historyContainerPanel.add(historyPanel);
 
     }
-    historyScrollPane.setViewportView(historyContainerPanel);
+    HISTORY_SCROLL_PANE.setViewportView(historyContainerPanel);
 
-    historyScrollPane.revalidate();
-    historyScrollPane.repaint();
+    HISTORY_SCROLL_PANE.revalidate();
+    HISTORY_SCROLL_PANE.repaint();
   }
 }
