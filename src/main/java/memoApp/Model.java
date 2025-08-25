@@ -13,7 +13,17 @@ import java.util.List;
  */
 public class Model {
   /**.テキストファイルを保存するディレクトリのパス*/
-  private static final String SAVE_DIR = "src/main/resources/memos/";
+  private static final String SAVE_DIR = "memos/";
+
+  /**.
+   * コンストラクタ
+   */
+  public Model() {
+    File dir = new File(SAVE_DIR);
+    if (!dir.exists()) {
+      dir.mkdir();
+    }
+  }
 
   /**テキストエリアの文字列データを、テキストファイルに書き込むメソッド.
    *
@@ -22,7 +32,7 @@ public class Model {
    */
   public void saveMemo(String content) throws IOException {
     String fileName = System.currentTimeMillis() + ".txt";
-    try (FileWriter writer = new FileWriter(fileName)) {
+    try (FileWriter writer = new FileWriter(SAVE_DIR + fileName)) {
       writer.write(content);
     }
   }
