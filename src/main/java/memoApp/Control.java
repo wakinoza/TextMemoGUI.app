@@ -44,7 +44,7 @@ public class Control {
         JOptionPane.showMessageDialog(null, "メモが保存されました。", "information",
             JOptionPane.INFORMATION_MESSAGE);
         VIEW.getMemoTextArea().setText("");
-        updateHistoryPanel(); // リストを更新するメソッドを呼び出す
+        makeHistoryPanel();
       } catch (IOException ex) {
         JOptionPane.showMessageDialog(null, "ファイルの保存に失敗しました。", "Error",
             JOptionPane.ERROR_MESSAGE);
@@ -55,36 +55,44 @@ public class Control {
     VIEW.getTextClearButton().addActionListener(e -> VIEW.getMemoTextArea().setText(""));
 
     //再編集ボタン
-    VIEW.getEditButton().addActionListener(e -> {
-      String fileName = e.getActionCommand();
+    if (VIEW.getEditButton() != null) {
 
-      try {
-         String content = MODEL.loadMemoContent(fileName);
-         MODEL.clearThisHistory(fileName);
-         VIEW.setMemoContent(content);
-      } catch (IOException ex) {
-         JOptionPane.showMessageDialog(null, "ファイルの読み込みに失敗しました。", "Error", JOptionPane.ERROR_MESSAGE);
-      }
-    });
+      VIEW.getEditButton().addActionListener(e -> {
+        String fileName = e.getActionCommand();
+
+        try {
+          String content = MODEL.loadMemoContent(fileName);
+          MODEL.clearThisHistory(fileName);
+          VIEW.setMemoContent(content);
+        } catch (IOException ex) {
+          JOptionPane.showMessageDialog(null, "ファイルの読み込みに失敗しました。", "Error",
+              JOptionPane.ERROR_MESSAGE);
+        }
+      });
+    }
 
     //履歴削除ボタン
-    VIEW.getClearHistoryButton() .addActionListener(e -> {
-      String fileName = e.getActionCommand();
-      try {
-        MODEL.clearThisHistory(fileName);
-        updateHistoryPanel();
-        JOptionPane.showMessageDialog(null, "履歴を消去しました。", "Information", JOptionPane.INFORMATION_MESSAGE);
-      } catch (IOException ex) {
-        JOptionPane.showMessageDialog(null, "ファイルの削除に失敗しました。", "Error", JOptionPane.ERROR_MESSAGE);
-      }
-    });
+    if (VIEW.getClearHistoryButton() != null) {
+      VIEW.getClearHistoryButton().addActionListener(e -> {
+        String fileName = e.getActionCommand();
+        try {
+          MODEL.clearThisHistory(fileName);
+          makeHistoryPanel();
+          JOptionPane.showMessageDialog(null, "履歴を消去しました。", "Information",
+              JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+          JOptionPane.showMessageDialog(null, "ファイルの削除に失敗しました。", "Error",
+              JOptionPane.ERROR_MESSAGE);
+        }
+      });
+    }
   }
 
   /**.
    * 履歴表示の再構成を指示するメソッド
    */
-  public void updateHistoryPanel() {
+  public void makeHistoryPanel() {
     List<String> fileNames = MODEL.getHistoryList();
-    VIEW.updateHistoryPanel(fileNames);
+    VIEW.updateHistoryPanel(fileNames,this);
   }
 }
