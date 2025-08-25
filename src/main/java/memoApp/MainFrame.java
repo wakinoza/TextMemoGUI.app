@@ -27,6 +27,6 @@ public class MainFrame extends JFrame {
     add(view.getMemoPanel(), BorderLayout.CENTER);
     add(view.getHistoryScrollPane(), BorderLayout.WEST);
 
-    control.setupListeners();
+    control.setupMemoListeners();
   }
 }

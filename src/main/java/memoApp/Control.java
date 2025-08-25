@@ -2,6 +2,7 @@ package memoApp;
 
 import java.io.IOException;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**.
@@ -28,7 +29,7 @@ public class Control {
   /**.
    * ボタン操作の処理を指示するメソッド
    */
-  public void setupListeners() {
+  public void setupMemoListeners() {
 
     //保存ボタン
     VIEW.getSaveButton().addActionListener(e -> {
@@ -54,38 +55,39 @@ public class Control {
     //テキスト削除ボタン
     VIEW.getTextClearButton().addActionListener(e -> VIEW.getMemoTextArea().setText(""));
 
-    //再編集ボタン
-    if (VIEW.getEditButton() != null) {
+  }
 
-      VIEW.getEditButton().addActionListener(e -> {
-        String fileName = e.getActionCommand();
+  public void setupEditListener(JButton editButton) {
 
-        try {
-          String content = MODEL.loadMemoContent(fileName);
-          MODEL.clearThisHistory(fileName);
-          VIEW.setMemoContent(content);
-        } catch (IOException ex) {
-          JOptionPane.showMessageDialog(null, "ファイルの読み込みに失敗しました。", "Error",
-              JOptionPane.ERROR_MESSAGE);
-        }
-      });
-    }
+    VIEW.getEditButton().addActionListener(e -> {
+      String fileName = e.getActionCommand();
 
-    //履歴削除ボタン
-    if (VIEW.getClearHistoryButton() != null) {
-      VIEW.getClearHistoryButton().addActionListener(e -> {
-        String fileName = e.getActionCommand();
-        try {
-          MODEL.clearThisHistory(fileName);
-          makeHistoryPanel();
-          JOptionPane.showMessageDialog(null, "履歴を消去しました。", "Information",
-              JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException ex) {
-          JOptionPane.showMessageDialog(null, "ファイルの削除に失敗しました。", "Error",
-              JOptionPane.ERROR_MESSAGE);
-        }
-      });
-    }
+      try {
+        String content = MODEL.loadMemoContent(fileName);
+        MODEL.clearThisHistory(fileName);
+        VIEW.setMemoContent(content);
+      } catch (IOException ex) {
+        JOptionPane.showMessageDialog(null, "ファイルの読み込みに失敗しました。", "Error",
+            JOptionPane.ERROR_MESSAGE);
+      }
+    });
+
+  }
+
+  public void setupClearHistoryListener(JButton clearHistoryButton) {
+
+    VIEW.getClearHistoryButton().addActionListener(e -> {
+      String fileName = e.getActionCommand();
+      try {
+        MODEL.clearThisHistory(fileName);
+        makeHistoryPanel();
+        JOptionPane.showMessageDialog(null, "履歴を消去しました。", "Information",
+            JOptionPane.INFORMATION_MESSAGE);
+      } catch (IOException ex) {
+        JOptionPane.showMessageDialog(null, "ファイルの削除に失敗しました。", "Error",
+            JOptionPane.ERROR_MESSAGE);
+      }
+    });
   }
 
   /**.

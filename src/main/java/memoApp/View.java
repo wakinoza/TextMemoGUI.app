@@ -147,18 +147,17 @@ public class View {
       JLabel fileNameLabel = new JLabel(fileName);
       editButton = new JButton("再編集");
       editButton.setActionCommand(fileName);
+      control.setupEditListener(editButton);
       clearHistoryButton = new JButton("履歴削除");
       clearHistoryButton.setActionCommand(fileName);
+      control.setupClearHistoryListener(clearHistoryButton);
 
       historyPanel.add(fileNameLabel);
       historyPanel.add(editButton);
       historyPanel.add(clearHistoryButton);
 
       historyContainerPanel.add(historyPanel);
-    }
 
-    if (!fileNames.isEmpty()) {
-      control.setupListeners();
     }
 
     historyScrollPane.revalidate();
