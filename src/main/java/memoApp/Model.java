@@ -1,8 +1,11 @@
 package memoApp;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,12 +37,10 @@ public class Model {
    * @throws IOException 指定されたファイルが存在するが通常ファイルではなくディレクトリである場合、存在せず作成もできない場合、またはなんらかの理由で開くことができない場合
    */
   public void saveMemo(String content) throws IOException {
-
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
     LocalDateTime now = LocalDateTime.now();
-    String fileName = formatter.format(now) + ".txt";
-    try (FileWriter writer = new FileWriter(SAVE_DIR + fileName)) {
-      writer.write(content);
+    try (Writer output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(SAVE_DIR + formatter.format(now) + ".txt"), StandardCharsets.UTF_8))) {
+      output.write(content);
     }
   }
 
