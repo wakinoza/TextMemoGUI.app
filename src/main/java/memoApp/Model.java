@@ -26,8 +26,12 @@ public class Model {
    */
   public Model() {
     File dir = new File(SAVE_DIR);
-    if (!dir.exists()) {
-      dir.mkdir();
+      if (!dir.exists()) {
+        boolean success = dir.mkdir();
+        if (!success) {
+           throw new IllegalStateException("ディレクトリが作成できませんでした");
+        }
+
     }
   }
 
