@@ -1,6 +1,7 @@
 package memoApp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,13 +36,16 @@ public class View {
     MEMO_PANEL = new JPanel(new BorderLayout());
     MEMO_TEXT_AREA = new JTextArea();
     SAVE_BUTTON = new JButton("保存");
+    SAVE_BUTTON.setBackground(Color.GREEN);
     TEXT_CLEAR_BUTTON = new JButton("削除");
+    TEXT_CLEAR_BUTTON.setForeground(Color.RED);
 
     JScrollPane textScrollPane = new JScrollPane(MEMO_TEXT_AREA);
     MEMO_PANEL.add(textScrollPane, BorderLayout.CENTER);
 
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+
     buttonPanel.add(SAVE_BUTTON);
     buttonPanel.add(TEXT_CLEAR_BUTTON);
     MEMO_PANEL.add(buttonPanel, BorderLayout.SOUTH);
@@ -126,6 +130,7 @@ public class View {
 
       JButton clearHistoryButton = new JButton("履歴削除");
       clearHistoryButton.setActionCommand(fileName);
+      clearHistoryButton.setForeground(Color.RED);
       control.setupClearHistoryListener(clearHistoryButton);
 
       historyPanel.add(editButton);
