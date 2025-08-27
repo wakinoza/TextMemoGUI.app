@@ -28,12 +28,6 @@ public class View {
   /**. テキスト削除ボタン*/
   private final JButton TEXT_CLEAR_BUTTON;
 
-  /**. 再編集ボタン*/
-  private JButton editButton;
-
-  /**. 履歴削除ボタン */
-  private JButton clearHistoryButton;
-
   /**.
    * コンストラクタ
    */
@@ -92,24 +86,6 @@ public class View {
   }
 
   /**.
-   * editButtonのgetterメソッド
-   *
-   * @return editButtonへの参照
-   */
-  public JButton getEditButton() {
-    return this.editButton;
-  }
-
-  /**.
-   * clearHistoryButtonのgetterメソッド
-   *
-   * @return clearHistoryButtonへの参照
-   */
-  public JButton getClearHistoryButton() {
-    return this.clearHistoryButton;
-  }
-
-  /**.
    * historyScrollPaneのgetterメソッド
    *
    * @return historyScrollPaneへの参照
@@ -144,11 +120,11 @@ public class View {
       JLabel fileNameLabel = new JLabel(fileName);
       historyPanel.add(fileNameLabel);
 
-      editButton = new JButton("再編集");
+      JButton editButton = new JButton("再編集");
       editButton.setActionCommand(fileName);
       control.setupEditListener(editButton);
 
-      clearHistoryButton = new JButton("履歴削除");
+      JButton clearHistoryButton = new JButton("履歴削除");
       clearHistoryButton.setActionCommand(fileName);
       control.setupClearHistoryListener(clearHistoryButton);
 

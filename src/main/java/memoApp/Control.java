@@ -65,7 +65,7 @@ public class Control {
    */
   public void setupEditListener(JButton editButton) {
 
-    VIEW.getEditButton().addActionListener(e -> {
+    editButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
 
       try {
@@ -88,7 +88,7 @@ public class Control {
    */
   public void setupClearHistoryListener(JButton clearHistoryButton) {
 
-    VIEW.getClearHistoryButton().addActionListener(e -> {
+    clearHistoryButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
       try {
         MODEL.clearThisHistory(fileName);
