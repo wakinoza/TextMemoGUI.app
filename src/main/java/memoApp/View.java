@@ -58,6 +58,7 @@ public class View {
    *
    * @return MEMO_TEXT_AREAへの参照
    */
+  @SuppressWarnings("EI_EXPOSE_REP")
   public JTextArea getMemoTextArea() {
     return this.MEMO_TEXT_AREA;
   }
@@ -67,6 +68,7 @@ public class View {
    *
    * @return MEMO_PANELへの参照
    */
+  @SuppressWarnings("EI_EXPOSE_REP")
   public JPanel getMemoPanel() {
     return this.MEMO_PANEL;
   }
@@ -76,6 +78,7 @@ public class View {
    *
    * @return SAVE_BUTTONへの参照
    */
+  @SuppressWarnings("EI_EXPOSE_REP")
   public JButton getSaveButton() {
     return this.SAVE_BUTTON;
   }
@@ -85,6 +88,7 @@ public class View {
    *
    * @return TEXT_CLEAR_BUTTONへの参照
    */
+  @SuppressWarnings("EI_EXPOSE_REP")
   public JButton getTextClearButton() {
     return this.TEXT_CLEAR_BUTTON;
   }
@@ -93,7 +97,7 @@ public class View {
    * historyScrollPaneのgetterメソッド
    *
    * @return historyScrollPaneへの参照
-   */
+   */@SuppressWarnings("EI_EXPOSE_REP")
   public JScrollPane getHistoryScrollPane() {
     return this.HISTORY_SCROLL_PANE;
   }
