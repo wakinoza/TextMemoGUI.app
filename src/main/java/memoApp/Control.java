@@ -21,6 +21,7 @@ public class Control {
    * @param model Modelクラスのインスタンスへの参照
    * @param view Viewクラスのインスタンスへの参照
    */
+  @SuppressWarnings("EI_EXPOSE_REP2")
   public Control(Model model, View view) {
     this.MODEL = model;
     this.VIEW = view;
@@ -70,6 +71,7 @@ public class Control {
       try {
         String content = MODEL.loadMemoContent(fileName);
         MODEL.clearThisHistory(fileName);
+        makeHistoryPanel();
         VIEW.setMemoContent(content);
       } catch (IOException ex) {
         JOptionPane.showMessageDialog(null, "ファイルの読み込みに失敗しました。", "Error",
