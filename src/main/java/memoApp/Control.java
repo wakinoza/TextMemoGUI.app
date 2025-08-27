@@ -9,10 +9,10 @@ import javax.swing.JOptionPane;
  * ModelクラスとViewクラスのかけ渡しを担うクラス
  */
 public class Control {
-  /**.Modelクラスのインスタンスへの参照*/
+  /**. Modelクラスのインスタンスへの参照*/
   private final Model MODEL;
 
-  /**.Viewクラスのインスタンスへの参照*/
+  /**. Viewクラスのインスタンスへの参照*/
   private final View VIEW;
 
   /**.
@@ -21,6 +21,7 @@ public class Control {
    * @param model Modelクラスのインスタンスへの参照
    * @param view Viewクラスのインスタンスへの参照
    */
+  @SuppressWarnings("EI_EXPOSE_REP2")
   public Control(Model model, View view) {
     this.MODEL = model;
     this.VIEW = view;
@@ -64,12 +65,13 @@ public class Control {
    */
   public void setupEditListener(JButton editButton) {
 
-    VIEW.getEditButton().addActionListener(e -> {
+    editButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
 
       try {
         String content = MODEL.loadMemoContent(fileName);
         MODEL.clearThisHistory(fileName);
+        makeHistoryPanel();
         VIEW.setMemoContent(content);
       } catch (IOException ex) {
         JOptionPane.showMessageDialog(null, "ファイルの読み込みに失敗しました。", "Error",
@@ -78,6 +80,7 @@ public class Control {
     });
 
   }
+
   /**.
    * 履歴を再編集するメソッド
    *
@@ -85,7 +88,7 @@ public class Control {
    */
   public void setupClearHistoryListener(JButton clearHistoryButton) {
 
-    VIEW.getClearHistoryButton().addActionListener(e -> {
+    clearHistoryButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
       try {
         MODEL.clearThisHistory(fileName);
@@ -104,6 +107,6 @@ public class Control {
    */
   public void makeHistoryPanel() {
     List<String> fileNames = MODEL.getHistoryList();
-    VIEW.updateHistoryPanel(fileNames,this);
+    VIEW.updateHistoryPanel(fileNames, this);
   }
 }

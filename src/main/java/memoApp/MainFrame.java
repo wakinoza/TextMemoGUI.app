@@ -1,7 +1,7 @@
 package memoApp;
 
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import javax.swing.JFrame;
 
 /**.
  * GUI表示を司るクラス
