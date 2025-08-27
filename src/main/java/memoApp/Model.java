@@ -18,22 +18,6 @@ import java.util.List;
  * データの読み書きを行うクラス
  */
 public class Model {
-  /**. テキストファイルを保存するディレクトリのパス*/
-  private static final String SAVE_DIR = "memos/";
-
-  /**.
-   * コンストラクタ
-   */
-  public Model() {
-    File dir = new File(SAVE_DIR);
-      if (!dir.exists()) {
-        boolean success = dir.mkdir();
-        if (!success) {
-           throw new IllegalStateException("ディレクトリが作成できませんでした");
-        }
-
-    }
-  }
 
   /**テキストエリアの文字列データを、テキストファイルに書き込むメソッド.
    *
@@ -43,7 +27,7 @@ public class Model {
   public void saveMemo(String content) throws IOException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
     LocalDateTime now = LocalDateTime.now();
-    try (Writer output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(SAVE_DIR + formatter.format(now) + ".txt"), StandardCharsets.UTF_8))) {
+    try (Writer output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Main.getSaveDir() + formatter.format(now) + ".txt"), StandardCharsets.UTF_8))) {
       output.write(content);
     }
   }
@@ -55,7 +39,7 @@ public class Model {
    */
   public List<String> getHistoryList() {
     List<String> fileNames = new ArrayList<>();
-    File dir = new File(SAVE_DIR);
+    File dir = new File(Main.getSaveDir());
     File[] files = dir.listFiles((d, name) -> name.endsWith(".txt"));
     if (files != null) {
       for (File file : files) {
@@ -73,7 +57,7 @@ public class Model {
    * @throws IOException ファイルからの読取り中に入出力エラーが発生した場合、または形式が間違っているか、マップできないバイト・シーケンスが読み取られた場合
    */
   public String loadMemoContent(String fileName) throws IOException {
-    byte[] bytes = Files.readAllBytes(Paths.get(SAVE_DIR + fileName));
+    byte[] bytes = Files.readAllBytes(Paths.get(Main.getSaveDir() + fileName));
     return new String(bytes, StandardCharsets.UTF_8);
   }
 
@@ -84,6 +68,6 @@ public class Model {
    * @throws IOException 入出力エラーが発生した場合
    */
   public void clearThisHistory(String fileName) throws IOException {
-    Files.delete(Paths.get(SAVE_DIR + fileName));
+    Files.delete(Paths.get(Main.getSaveDir() + fileName));
   }
 }
